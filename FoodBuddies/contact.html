@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Food Buddies</title>
+  <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="contact-header">
+    <h1>Contact Food Buddies</h1>
+    <button class="go-back" onclick="goBack()">Go Back</button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="contact-container">
+    <!-- Contact Info Section -->
+    <section class="contact-info">
+      <h2>Get in Touch</h2>
+      <p>
+        If you have questions, suggestions, or feedback, we’d love to hear from you. 
+        Reach out using the details below or fill out the contact form.
+      </p>
+      
+      <div class="contact-details">
+        <p><strong>Email:</strong> <a href="mailto:support@foodbuddies.com">support@foodbuddies.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 234 567 890</a></p>
+        <p><strong>Office Address:</strong> 123 Food Buddies Lane, Ottawa, ON, K1A 0B1</p>
+        <p><strong>Customer Service Hours:</strong> Monday to Friday, 9 AM - 5 PM EST</p>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Enter subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" class="send-btn">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media">
+      <h2>Follow Us</h2>
+      <p>Stay updated with our latest news, initiatives, and events. Follow us on:</p>
+      <ul>
+        <li><a href="#" target="_blank">Facebook</a></li>
+        <li><a href="#" target="_blank">Instagram</a></li>
+        <li><a href="#" target="_blank">Twitter</a></li>
+        <li><a href="#" target="_blank">LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Script for 'Go Back' -->
+  <script>
+    /**
+     * Navigates the user back to the previous page.
+     */
+    function goBack() {
+      window.history.back();
+    }
+
+    // Form Submission Handling
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Your message has been sent! Thank you for reaching out.');
+    });
+  </script>
+</body>
+</html>

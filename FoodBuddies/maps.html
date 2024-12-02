@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Buddies Map</title>
+  <link rel="stylesheet" href="maps.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="map-header">
+    <h1>Food Buddies Map</h1>
+    <a href="dashboard.html" class="go-back">Go Back</a>
+  </header>
+
+  <!-- ZIP Code Filter -->
+  <section class="zipcode-filter">
+    <input type="text" id="zipcodeInput" placeholder="Enter ZIP Code to Filter" class="zipcode-input">
+    <button onclick="filterByZipCode()">Apply ZIP Code Filter</button>
+  </section>
+
+  <!-- Map Container -->
+  <main>
+    <div id="map" class="map-container"></div>
+  </main>
+
+  <!-- Google Maps API Script -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmaaHcEmEzDVv_tEnxf_pZk7g4GczdkPI&callback=initMap"
+    async defer>
+  </script>
+
+  <script>
+    let map;
+    let currentUserLocation;
+    let markers = [];  // To store the markers for clearing them later
+
+    // Initialize and add the map
+    function initMap() {
+      const defaultLocation = { lat: 40.7128, lng: -74.0060 }; // Default location (New York City)
+
+      // Check if browser supports geolocation
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            currentUserLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+
+            // Initialize map with user location
+            map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 12,
+              center: currentUserLocation,
+            });
+
+            // Add user location marker
+            new google.maps.Marker({
+              position: currentUserLocation,
+              map: map,
+              title: "You are here!",
+            });
+
+            // Fetch and display all food listings by default (no radius, show everything)
+            fetchNearbyFoodListings();
+          },
+          () => renderDefaultMap(defaultLocation) // Fallback to default location if geolocation fails
+        );
+      } else {
+        renderDefaultMap(defaultLocation); // Fallback if geolocation is not supported
+      }
+    }
+
+    // Render map with default location
+    function renderDefaultMap(location) {
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: location,
+      });
+
+      new google.maps.Marker({
+        position: location,
+        map: map,
+        title: "Default Location",
+      });
+
+      // Fetch and display all food listings (no filter applied)
+      fetchNearbyFoodListings();
+    }
+
+    // Fetch food listings from the backend using latitude, longitude, or ZIP code
+    async function fetchNearbyFoodListings() {
+      const zipcode = document.getElementById('zipcodeInput').value.trim();
+
+      try {
+        let url = `http://localhost:5000/api/food`;  // Fetch all food listings by default
+
+        if (zipcode) {
+          url = `http://localhost:5000/api/food?zipcode=${zipcode}`;  // Use ZIP code if provided
+        }
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          console.error("Failed to fetch food listings.");
+          return;
+        }
+
+        const foodListings = await response.json();
+
+        // Clear existing markers
+        clearMarkers();
+
+        // Add markers for food listings
+        foodListings.forEach((food) => {
+          const { coordinates } = food.location;
+          const marker = new google.maps.Marker({
+            position: { lat: coordinates[1], lng: coordinates[0] },
+            map: map,
+            title: food.description,
+          });
+
+          // Add info window for each marker
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+              <div>
+                <h3>${food.description}</h3>
+                <p><strong>Type:</strong> ${food.type}</p>
+                <p><strong>Expiration Date:</strong> ${new Date(food.expirationDate).toLocaleDateString()}</p>
+              </div>
+            `,
+          });
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+
+          markers.push(marker);  // Store the marker in the array for later removal
+        });
+      } catch (error) {
+        console.error("Error fetching nearby food listings:", error);
+      }
+    }
+
+    // Function to filter by ZIP code
+    function filterByZipCode() {
+      const zipcode = document.getElementById('zipcodeInput').value.trim();
+      if (!zipcode) {
+        // If no ZIP code entered, show all food listings
+        fetchNearbyFoodListings();
+      } else {
+        // Fetch food listings based on ZIP code entered
+        fetchNearbyFoodListings();
+        centerMapOnZipCode(zipcode);
+      }
+    }
+
+    // Function to center map based on ZIP code
+    async function centerMapOnZipCode(zipcode) {
+      try {
+        const geocodeData = await fetch(`http://localhost:5000/api/food?zipcode=${zipcode}`);
+        const data = await geocodeData.json();
+
+        if (data && data.length > 0) {
+          const { coordinates } = data[0].location; // Get the first food location coordinates
+          const newLocation = { lat: coordinates[1], lng: coordinates[0] };
+
+          // Center the map on the new ZIP code location
+          map.setCenter(newLocation);
+          map.setZoom(12);  // Set zoom level
+        }
+      } catch (error) {
+        console.error("Error fetching ZIP code location:", error);
+      }
+    }
+
+    // Function to clear existing markers from the map
+    function clearMarkers() {
+      markers.forEach((marker) => marker.setMap(null));  // Remove each marker from the map
+      markers = [];  // Clear the markers array
+    }
+
+    // Ensure map initializes correctly on page load and navigation
+    window.onload = initMap;
+
+    window.onpageshow = function (event) {
+      if (event.persisted) {
+        initMap();
+      }
+    };
+
+    // Listen for changes in the ZIP code input field to update the map dynamically
+    document.getElementById('zipcodeInput').addEventListener('input', function() {
+      const zipcode = this.value.trim();
+      if (!zipcode) {
+        // If the field is empty, show all food listings again
+        fetchNearbyFoodListings();
+      }
+    });
+  </script>
+</body>
+</html>

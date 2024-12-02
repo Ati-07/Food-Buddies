@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Buddies Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Food Buddies</h2>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html" class="active">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="maps.html">Maps</a></li>
+      </ul>
+    </nav>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Welcome Section -->
+    <section class="welcome">
+      <h1>Welcome, <span id="userName">User</span>!</h1>
+      <p>Discover and share food with others in your community.</p>
+    </section>
+
+    <!-- Controls Bar -->
+    <section class="controls-bar">
+      <button id="postFoodButton" onclick="window.location.href='post_food.html'">Post Food</button>
+      <button id="clearFeedButton" class="clear-feed-btn" onclick="clearFeed()">Clear Feed</button>
+      
+      <div class="search-sort-bar">
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input 
+            type="text" 
+            placeholder="Search for food..." 
+            id="searchInput" 
+            class="styled-input"
+          >
+          <button onclick="searchFood()" class="styled-button">Search</button>
+        </div>
+        <!-- Sort Options -->
+        <div class="sort-options">
+          <label for="sortOrder" class="styled-label">Sort by:</label>
+          <select id="sortOrder" class="styled-select" onchange="sortFeed()">
+            <option value="new">Newest</option>
+            <option value="old">Oldest</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Filter Section -->
+    <section class="location-filter">
+      <h3>Filter by Location</h3>
+      <div class="location-input">
+        <input 
+          type="text" 
+          placeholder="Enter ZIP Code..." 
+          id="zipcodeInput" 
+          class="styled-input"
+        >
+        <button onclick="filterByLocation()" class="styled-button">Apply</button>
+      </div>
+    </section>
+
+    <!-- Feed Section -->
+    <section class="feed">
+      <h2>Food Listings</h2>
+      <div id="foodListings" class="food-grid"></div>
+    </section>
+
+    <!-- Food Details Modal -->
+    <div id="foodDetailsModal" class="modal">
+      <div class="modal-content">
+        <button class="close" onclick="closeModal()">&times;</button>
+        <h3 id="foodTitle"></h3>
+        <p id="foodDescription"></p>
+        <p><strong>Date Made:</strong> <span id="dateMade"></span></p>
+        <p><strong>Expiration Date:</strong> <span id="foodExpirationDate"></span></p>
+        <p><strong>Ingredients:</strong> <span id="foodIngredients"></span></p>
+        <p><strong>Posted By:</strong> <span id="foodPostedBy"></span></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

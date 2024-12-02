@@ -1,0 +1,305 @@
+/* CSS Variables */
+:root {
+  --primary-color: #283046; /* Deep navy blue */
+  --secondary-color: #C53030; /* Darker red */
+  --accent-color: #E53E3E; /* Bright red */
+  --background-color: #F4F5F7; /* Soft light grey */
+  --text-color: #2D3748; /* Neutral dark gray */
+  --muted-text-color: #4A5568; /* Muted gray for secondary text */
+  --white: #FFFFFF; /* White for content backgrounds */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  --hover-shadow-color: rgba(0, 0, 0, 0.2); /* Stronger shadow for hover */
+  --border-color: #CBD5E0; /* Subtle light blue-gray for borders */
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header Styling */
+header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 50px 0;
+}
+
+header h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.sub-header {
+  font-size: 1.2em;
+  font-weight: 300;
+  color: var(--muted-text-color);
+}
+
+/* Navigation Styling */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+nav ul li .btn {
+  background-color: var(--accent-color);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+nav ul li .btn:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+/* Main Section Styling */
+section {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Features Section */
+#features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#features .feature-box {
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  text-align: left;
+  flex: 1 1 300px; /* Minimum width of 300px for the boxes */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#features .feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px var(--hover-shadow-color);
+}
+
+#features h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+#features p {
+  color: var(--muted-text-color);
+}
+
+/* Responsive Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+  #features {
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center;
+  }
+
+  #features .feature-box {
+    flex: 1 1 100%; /* Full width for smaller screens */
+    max-width: 100%;
+  }
+}
+
+/* Testimonials Section */
+#testimonials {
+  margin-top: 40px;
+}
+
+#testimonials blockquote {
+  background-color: var(--background-color);
+  padding: 20px;
+  border-left: 5px solid var(--primary-color);
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+#testimonials cite {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Form Styling */
+form {
+  background-color: var(--white);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px var(--shadow-color);
+  max-width: 600px;
+  margin: 30px auto;
+  display: grid;
+  gap: 20px;
+}
+
+form h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+form input,
+form select,
+form textarea,
+form button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px var(--hover-shadow-color);
+  outline: none;
+}
+
+form button {
+  background-color: var(--accent-color);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form-check input {
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  nav ul li .btn {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+
+  #features .feature-box {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  form {
+    padding: 30px;
+  }
+
+  form .form-row {
+    flex-direction: column;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* On top of other elements */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: 15% auto; /* Center the modal */
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  width: 80%; /* Adjust width as needed */
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px var(--hover-shadow-color);
+  text-align: left;
+}
+
+.close {
+  color: var(--text-color);
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: var(--secondary-color);
+  text-decoration: none;
+}

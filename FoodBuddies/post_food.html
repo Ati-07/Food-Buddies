@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Food - Food Buddies</title>
+  <link rel="stylesheet" href="post_food.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="post-food-header">
+    <h1>Post Food</h1>
+    <button class="go-back" onclick="goBack()">Go Back</button>
+  </header>
+
+  <!-- Post Food Form Container -->
+  <main class="post-food-container">
+    <form id="postFoodForm" onsubmit="return false;">
+      <!-- Food Name -->
+      <div class="form-group">
+        <label for="foodName">Name of the Product:</label>
+        <input type="text" id="foodName" name="foodName" placeholder="Enter food name" required>
+      </div>
+
+      <!-- Food Type -->
+      <div class="form-group">
+        <label for="foodType">Type of Product:</label>
+        <input type="text" id="foodType" name="foodType" placeholder="Enter type of product" required>
+      </div>
+
+      <!-- Date Made -->
+      <div class="form-group">
+        <label for="dateMade">Date Made:</label>
+        <input type="date" id="dateMade" name="dateMade" required>
+      </div>
+
+      <!-- Expiration Date -->
+      <div class="form-group">
+        <label for="dateExpires">Expiration Date:</label>
+        <input type="date" id="dateExpires" name="dateExpires" required>
+      </div>
+
+      <!-- Ingredients -->
+      <div class="form-group">
+        <label for="ingredients">Ingredients Used:</label>
+        <ul id="userIngredients"></ul>
+        <div id="ingredientsSuggestions"></div>
+      </div>
+
+      <!-- ZIP Code -->
+      <div class="form-group">
+        <label for="zipcode">ZIP Code:</label>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Enter ZIP code" pattern="\d{5}" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="button" class="submit-btn" onclick="submitForm()">Post Food</button>
+
+      <!-- Message -->
+      <p id="message"></p>
+    </form>
+  </main>
+
+  <script>
+    // Fetch ingredient suggestions from a static JSON file
+    let ingredientsData = {};
+    fetch('ingredients.json')
+      .then(response => response.json())
+      .then(data => {
+        ingredientsData = data;
+      })
+      .catch(error => console.error('Error loading ingredients data:', error));
+
+    // Function to check if the token is expired
+    function isTokenExpired(token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+      return payload.exp < currentTime;
+    }
+
+    // Suggest ingredients based on product name and type
+    function suggestIngredients() {
+      const productName = document.getElementById('foodName').value.trim();
+      const productType = document.getElementById('foodType').value.trim();
+      const key = `${productName} ${productType}`;
+
+      const ingredientsContainer = document.getElementById('ingredientsSuggestions');
+      ingredientsContainer.innerHTML = '';
+
+      if (ingredientsData[key]) {
+        ingredientsData[key].forEach(ingredient => {
+          const button = document.createElement('button');
+          button.classList.add('ingredient-button');
+          button.textContent = ingredient;
+          button.onclick = event => {
+            event.preventDefault();
+            addIngredientToUserList(ingredient);
+          };
+          ingredientsContainer.appendChild(button);
+        });
+      } else {
+        ingredientsContainer.innerHTML = `<p>No ingredients found for "${productName} ${productType}".</p>`;
+      }
+    }
+
+    // Add ingredient to user list
+    function addIngredientToUserList(ingredient) {
+      const userIngredients = document.getElementById('userIngredients');
+      const listItem = document.createElement('li');
+      listItem.textContent = ingredient;
+
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.classList.add('remove-button');
+      removeButton.onclick = () => listItem.remove();
+      listItem.appendChild(removeButton);
+
+      userIngredients.appendChild(listItem);
+    }
+
+    document.getElementById('foodName').addEventListener('input', suggestIngredients);
+    document.getElementById('foodType').addEventListener('input', suggestIngredients);
+
+    // Convert date to EST
+    function convertToEST(dateString) {
+      const date = new Date(dateString);
+      const estDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      return estDate.toISOString().split('T')[0];
+    }
+
+    // Submit form
+    async function submitForm() {
+      const token = localStorage.getItem('authToken');
+      if (!token || isTokenExpired(token)) {
+        localStorage.removeItem('authToken');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const foodName = document.getElementById('foodName').value;
+      const foodType = document.getElementById('foodType').value;
+      const dateMade = convertToEST(document.getElementById('dateMade').value);
+      const dateExpires = convertToEST(document.getElementById('dateExpires').value);
+      const zipcode = document.getElementById('zipcode').value;
+
+      const ingredients = Array.from(document.getElementById('userIngredients').children)
+        .map(item => item.firstChild.textContent);
+
+      try {
+        const response = await fetch('http://localhost:5000/api/food/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token
+          },
+          body: JSON.stringify({
+            description: foodName,
+            type: foodType,
+            dateMade,
+            expirationDate: dateExpires,
+            ingredients,
+            zipcode
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById('message').textContent = 'Food posted successfully!';
+          document.getElementById('message').style.color = 'green';
+          document.getElementById('postFoodForm').reset();
+          document.getElementById('userIngredients').innerHTML = '';
+        } else {
+          document.getElementById('message').textContent = `Failed to post food: ${data.message}`;
+          document.getElementById('message').style.color = 'red';
+        }
+      } catch (error) {
+        document.getElementById('message').textContent = `Error: ${error.message}`;
+        document.getElementById('message').style.color = 'red';
+      }
+    }
+
+    // Go back to the previous page
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

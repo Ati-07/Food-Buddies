@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Food Buddies</title>
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="about-header">
+    <h1>About Food Buddies</h1>
+    <button class="go-back" onclick="goBack()">Go Back</button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="about-container">
+    <!-- Mission Section -->
+    <section class="mission-section">
+      <h2>Our Mission</h2>
+      <p>
+        Food Buddies aims to reduce food waste, fight hunger, and foster community connections 
+        by sharing surplus food resources in a responsible and sustainable way.
+      </p>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="values-section">
+      <h2>Our Core Values</h2>
+      <div class="values-grid">
+        <article class="value-item">
+          <h3>Community</h3>
+          <p>Building a network of individuals and organizations working together to share and care.</p>
+        </article>
+        <article class="value-item">
+          <h3>Sustainability</h3>
+          <p>Encouraging practices that protect the environment while promoting social responsibility.</p>
+        </article>
+        <article class="value-item">
+          <h3>Compassion</h3>
+          <p>Providing food resources with kindness, dignity, and care for those in need.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Our Impact Section -->
+    <section class="impact-section">
+      <h2>Our Impact</h2>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <h3>500+</h3>
+          <p>Families served every month.</p>
+        </div>
+        <div class="impact-item">
+          <h3>10,000+</h3>
+          <p>Meals distributed since inception.</p>
+        </div>
+        <div class="impact-item">
+          <h3>100+</h3>
+          <p>Active volunteers supporting our cause.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Us Section -->
+    <section class="join-section">
+      <h2>Join the Movement</h2>
+      <p>
+        We are always looking for volunteers, donors, and partners to help us expand our reach and make a greater impact. 
+        Together, we can build a stronger, more compassionate community.
+      </p>
+      <button class="join-btn" onclick="window.location.href='contact.html'">Get Involved</button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="about-footer">
+    <p>&copy; 2024 Food Buddies. All rights reserved.</p>
+  </footer>
+
+  <!-- Script for 'Go Back' -->
+  <script>
+    /**
+     * Navigates the user back to the previous page.
+     */
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

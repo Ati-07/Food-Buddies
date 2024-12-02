@@ -1,0 +1,391 @@
+/* CSS Variables */
+:root {
+  --primary-color: #283046; /* Deep navy blue */
+  --secondary-color: #7289AB; /* Soft blue */
+  --accent-color: #D9E1F2; /* Subtle light blue */
+  --background-color: #F4F5F7; /* Light grey */
+  --text-color: #333; /* Default text color */
+  --muted-text-color: #4A5568; /* Muted text */
+  --white: #fff; /* Pure white */
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color); /* Soft light grey */
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background-color: var(--primary-color); /* Deep navy blue */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebar h2 {
+  color: var(--white);
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  flex: 1;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  display: block;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  background-color: var(--secondary-color); /* Soft blue */
+}
+
+.logout-btn {
+  margin-top: auto;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.logout-btn:hover {
+  background-color: var(--primary-color);
+}
+
+/* Main Content Styling */
+.main-content {
+  margin-left: 250px; /* Space for the sidebar */
+  padding: 40px;
+  flex: 1;
+  background-color: var(--white); /* White for content contrast */
+}
+
+/* Welcome Section */
+.welcome {
+  text-align: center;
+  margin: 20px 0;
+  background-color: var(--accent-color); /* Light pastel grey-blue */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome h1 {
+  font-size: 32px;
+  color: var(--primary-color); /* Deep navy blue */
+}
+
+.welcome p {
+  font-size: 18px;
+  color: var(--muted-text-color);
+  margin-top: 10px;
+}
+
+/* Controls Bar */
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+/* Buttons Styling */
+#postFoodButton,
+.clear-feed-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--primary-color); /* Deep navy blue */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#postFoodButton:hover,
+.clear-feed-btn:hover {
+  background-color: var(--secondary-color); /* Lighter navy */
+}
+
+/* Search and Sort Bar */
+.search-sort-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: var(--secondary-color);
+}
+
+.sort-options select {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--primary-color); /* Deep navy blue */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sort-options select:hover {
+  background-color: var(--secondary-color); /* Lighter navy */
+}
+
+/* Feed Section */
+.feed {
+  margin-top: 40px;
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feed h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Food Grid */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Food Card */
+.food-post {
+  background-color: var(--background-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.food-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.food-post img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.food-post-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.food-post-content h3 {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.food-post-content p {
+  font-size: 14px;
+  color: var(--muted-text-color);
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: var(--muted-text-color);
+}
+
+.modal-content p strong {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.close {
+  font-size: 24px;
+  color: var(--muted-text-color);
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .feed h2 {
+    font-size: 24px;
+  }
+}
+
+/* Location Filter Styling (matching Search Bar) */
+.location-filter {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+/* Location Filter Input */
+.location-filter input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--primary-color); /* Deep navy blue border */
+  border-radius: 4px;
+  outline: none;
+  width: 250px; /* Adjust width as necessary */
+  transition: border-color 0.3s ease;
+}
+
+/* Location Filter Input focus state */
+.location-filter input:focus {
+  border-color: var(--secondary-color); /* Soft blue when focused */
+}
+
+/* Location Filter Button */
+.location-filter button {
+  padding: 10px 15px;
+  background-color: var(--primary-color); /* Deep navy blue */
+  color: var(--white);
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.location-filter button:hover {
+  background-color: var(--secondary-color); /* Soft blue on hover */
+}
+
+/* Adjust the layout for mobile */
+@media (max-width: 768px) {
+  .location-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .location-filter input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .location-filter button {
+    width: 100%;
+  }
+}

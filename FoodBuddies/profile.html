@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Food Buddies</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="profile-header">
+    <h1>User Profile</h1>
+    <button class="go-back" onclick="goBack()">Go Back</button>
+  </header>
+
+  <!-- Profile Container -->
+  <main class="profile-container">
+    <!-- Personal Information Section -->
+    <section class="profile-section">
+      <h2>Personal Information</h2>
+      <div class="profile-grid">
+        <div class="info-item">
+          <label>First Name:</label>
+          <p id="first-name">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>Last Name:</label>
+          <p id="last-name">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>Email:</label>
+          <p id="email-detail">Loading...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="profile-section">
+      <h2>Contact Information</h2>
+      <div class="profile-grid">
+        <div class="info-item">
+          <label>Street:</label>
+          <p id="street">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>Apartment Number:</label>
+          <p id="apt-number">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>City:</label>
+          <p id="city">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>State:</label>
+          <p id="state">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>Zipcode:</label>
+          <p id="zipcode">Loading...</p>
+        </div>
+        <div class="info-item">
+          <label>Phone Number:</label>
+          <p id="phone-detail">Loading...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Information Section -->
+    <section class="profile-section">
+      <h2>Additional Information</h2>
+      <div class="profile-grid">
+        <div class="info-item">
+          <label>Birthdate:</label>
+          <p id="birthdate">Loading...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // Go back to the previous page
+    function goBack() {
+      window.history.back();
+    }
+
+    // Check if token is expired
+    function isTokenExpired(token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+      return payload.exp < currentTime;
+    }
+
+    // Fetch user profile from the backend
+    async function fetchProfile() {
+      const token = localStorage.getItem('authToken');
+
+      // Redirect to login if token is invalid or expired
+      if (!token || isTokenExpired(token)) {
+        localStorage.removeItem('authToken');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/me', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user profile');
+        }
+
+        const user = await response.json();
+
+        // Populate user profile data
+        populateProfileData(user);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    }
+
+    // Populate profile fields with user data
+    function populateProfileData(user) {
+      document.getElementById('first-name').textContent = user.firstName;
+      document.getElementById('last-name').textContent = user.lastName;
+      document.getElementById('email-detail').textContent = user.email;
+
+      // Address Information
+      document.getElementById('street').textContent = user.address.street;
+      document.getElementById('apt-number').textContent = user.address.aptNumber || 'N/A';
+      document.getElementById('city').textContent = user.address.city;
+      document.getElementById('state').textContent = user.address.state;
+      document.getElementById('zipcode').textContent = user.address.zipcode;
+
+      // Contact Information
+      document.getElementById('phone-detail').textContent = user.phone;
+
+      // Additional Information
+      document.getElementById('birthdate').textContent = new Date(user.birthdate).toLocaleDateString();
+    }
+
+    // Fetch profile on page load
+    window.onload = fetchProfile;
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "Ham and Cheese Sandwich": ["Ham", "Cheese", "Bread", "Lettuce", "Tomato", "Mayonnaise"],
+  "Chicken Salad Salad": ["Chicken", "Lettuce", "Cucumber", "Tomato", "Olive Oil", "Salt", "Pepper"],
+  "Vegetable Soup Soup": ["Carrots", "Celery", "Onion", "Garlic", "Vegetable Broth", "Salt", "Pepper"],
+  "Pad Thai Noodles": ["Rice Noodles", "Shrimp", "Tofu", "Egg", "Bean Sprouts", "Peanuts", "Lime"],
+  "Butter Chicken Curry": ["Chicken", "Tomato Puree", "Butter", "Cream", "Garam Masala", "Cumin"],
+  "Lasagna Pasta": ["Lasagna Noodles", "Ground Beef", "Tomato Sauce", "Ricotta Cheese", "Mozzarella"],
+  "Beef Tacos Taco": ["Tortilla", "Ground Beef", "Cheese", "Lettuce", "Sour Cream", "Salsa"],
+  "Fried Rice Rice": ["Rice", "Egg", "Green Peas", "Carrot", "Soy Sauce", "Green Onion"],
+  "Guacamole Dip": ["Avocado", "Lime", "Tomato", "Onion", "Cilantro", "Salt"],
+  "Mac and Cheese Pasta": ["Macaroni", "Cheddar Cheese", "Milk", "Butter", "Breadcrumbs"]
+}

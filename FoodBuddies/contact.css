@@ -1,0 +1,199 @@
+/* CSS Variables for Consistent Styling */
+:root {
+  --primary-color: #283046; /* Deep navy blue */
+  --secondary-color: #7289AB; /* Soft blue */
+  --accent-color: #D9E1F2; /* Subtle light blue */
+  --background-color: #F4F5F7; /* Light grey */
+  --text-color: #333; /* Default text color */
+  --muted-text-color: #4A5568; /* Muted text */
+  --white: #fff; /* Pure white */
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color); /* Light grey for a clean background */
+  color: var(--muted-text-color); /* Neutral dark grey */
+  padding: 20px;
+}
+
+/* Header Styling */
+.contact-header {
+  background-color: var(--primary-color); /* Deep navy blue for contrast */
+  color: var(--white);
+  text-align: center;
+  padding: 40px 20px; /* Adjusted for better alignment */
+  border-bottom: 4px solid var(--accent-color); /* Subtle light blue border */
+}
+
+.contact-header h1 {
+  margin: 0;
+  font-size: 2.8rem;
+}
+
+.contact-header .go-back {
+  background-color: var(--secondary-color); /* Soft blue */
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-header .go-back:hover {
+  background-color: #576F91; /* Slightly darker soft blue */
+  transform: scale(1.05);
+}
+
+/* Contact Container Styling */
+.contact-container {
+  width: 90%;
+  margin: 40px auto;
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Styling */
+.contact-info,
+.contact-form,
+.social-media {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 2.2rem;
+  color: var(--primary-color); /* Deep navy blue */
+  border-bottom: 2px solid var(--accent-color); /* Subtle separator */
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--muted-text-color);
+}
+
+/* Contact Details Styling */
+.contact-details p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.contact-details a {
+  text-decoration: none;
+  color: var(--muted-text-color); /* Neutral color for professionalism */
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+  color: var(--primary-color); /* Deep navy blue on hover */
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #CBD5E0; /* Subtle light grey border */
+  border-radius: 5px;
+  background-color: #F9FAFB; /* Slight background contrast */
+}
+
+button.send-btn {
+  padding: 12px 20px;
+  background-color: var(--primary-color); /* Deep navy blue */
+  color: var(--white);
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.send-btn:hover {
+  background-color: #576F91; /* Darker navy */
+  transform: scale(1.05);
+}
+
+/* Social Media Section */
+.social-media ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.social-media li {
+  margin-bottom: 10px;
+}
+
+.social-media a {
+  text-decoration: none;
+  color: var(--primary-color); /* Deep navy blue for links */
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.social-media a:hover {
+  color: #576F91; /* Softer blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 20px;
+  }
+
+  .contact-header h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  button.send-btn {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+
+  .social-media ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-media li {
+    margin-bottom: 15px;
+  }
+}

@@ -1,0 +1,222 @@
+/* CSS Variables for Consistent Styling */
+:root {
+  --primary-color: #283046; /* Deep navy blue */
+  --secondary-color: #7289AB; /* Soft blue */
+  --accent-color: #D9E1F2; /* Subtle light blue */
+  --background-color: #F4F5F7; /* Light grey */
+  --text-color: #333; /* Default text color */
+  --muted-text-color: #4A5568; /* Muted text */
+  --white: #fff;
+}
+
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header Styling */
+.about-header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 40px;
+  border-bottom: 4px solid var(--accent-color);
+}
+
+.about-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+
+.about-header .go-back {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.about-header .go-back:hover,
+.about-header .go-back:focus {
+  background-color: #576F91; /* Darker soft blue */
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* About Container Styling */
+.about-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Styling */
+.mission-section,
+.values-section,
+.impact-section,
+.join-section {
+  margin-bottom: 40px;
+}
+
+.mission-section h2,
+.values-section h2,
+.impact-section h2,
+.join-section h2 {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.mission-section p,
+.values-section p,
+.join-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--muted-text-color);
+}
+
+/* Values Grid */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.value-item {
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.value-item:hover {
+  transform: translateY(-5px);
+}
+
+.value-item h3 {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.value-item p {
+  font-size: 1.1rem;
+  color: var(--muted-text-color);
+}
+
+/* Impact Grid */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: center;
+}
+
+.impact-item {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.impact-item:hover {
+  transform: scale(1.05);
+}
+
+.impact-item h3 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.impact-item p {
+  font-size: 1.2rem;
+  color: var(--muted-text-color);
+}
+
+/* Join Section Button */
+.join-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: var(--white);
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin: 20px auto 0;
+}
+
+.join-btn:hover,
+.join-btn:focus {
+  background-color: #576F91;
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about-header h1 {
+    font-size: 2rem;
+  }
+
+  .about-container {
+    padding: 20px;
+  }
+
+  .mission-section h2,
+  .values-section h2,
+  .impact-section h2,
+  .join-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .mission-section p,
+  .values-section p,
+  .join-section p {
+    font-size: 1rem;
+  }
+
+  .value-item h3 {
+    font-size: 1.4rem;
+  }
+
+  .value-item p {
+    font-size: 1rem;
+  }
+
+  .impact-item h3 {
+    font-size: 2rem;
+  }
+
+  .impact-item p {
+    font-size: 1rem;
+  }
+
+  .join-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
